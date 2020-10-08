@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block body %}
+    <h1>Blog</h1>
+
+
+    {% for blog_post in blog_posts %}
+    {% set category_name = (blog_post.categories | first).name | default %}
+        <div class="container_home">
+            <div class="border-link_ticket">
+                <img src="{{ blog_post.banner }}" alt="">
+                <h3>Blog n° {{ blog_post.id }}</h3>
+                <h4>{{ blog_post.title }}</h4>
+
+                <h4 class="category">Categorie</h4>
+                {% if category_name %}
+                <div class="category"><a href="{{ path('blogPost_name', {'name': category_name}) }}">{{category_name}}</a></div>
+                {% endif %}
+    
+                <div class="link_ticket">
+                    <div>{{ blog_post.content|slice(0, 30) }}</div>
+                </div>
+                
+                    
+            </div>
+            <div class="blog-end">
+                <a href="{{ path('blog_post_show', {'id': blog_post.id}) }}">Voir plus</a>
+                {% if blog_post.author != null %}
+                    <a href="{{ path('blog_user_show', {'id': blog_post.author.id}) }}">{{ blog_post.author }}</a>
+                {% else %}
+                    <a href=""></a>
+                {% endif %}
+                {% if app.user %}
+                    {% if blog_post.author != null %}
+                        {% if blog_post.author.id == app.user.id %}
+                            {{ include('blog_post/_delete_form.html.twig') }}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div><br><br>
+    {% endfor %}
+
+    <a href="{{ path('blog_post_new') }}">Create new</a>
+    {# <a href="{{ path('blog_post_edit', {'id': blog_post.id}) }}">edit</a> #}
+{% endblock %}

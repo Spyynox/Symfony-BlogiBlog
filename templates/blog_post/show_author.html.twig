@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BlogPost{% endblock %}
+
+{% block body %}
+	<h1>
+        Les  5 derniers articles et les 10 derniers commentaires reçus de 
+        {% for blog_post in blog_posts|slice(0, 1) %}
+            {% if blog_post.author != null %}
+                {% if blog_post.author.id == app.request.get('id') %}
+                    {{  blog_post.author }}
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </h1>
+    
+
+
+    {% for blog_post in blog_posts %}
+        {% if blog_post.author != null %}
+            {% if blog_post.author.id == app.request.get('id') %}
+                <div class="container_home">
+                    <div class="border-link_ticket">
+                        <h3>Blog n° {{ blog_post.id }}</h3>
+                        <h4>{{ blog_post.title }}</h4>
+                        <div class="link_ticket">
+                            <div>{{ blog_post.content|slice(0, 30) }}</div>
+                        </div>
+                        <a href="{{ path('blog_post_show', {'id': blog_post.id}) }}">Voir plus ...</a>
+                        {% if blog_post.author != null %}
+                            <a href="{{ path('blog_user_show', {'id': blog_post.author.id}) }}">{{ blog_post.author }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}<br>
+
+    {% for commentaire in commentaires %}
+        {% if commentaire.blog.author != null %}
+            {% if commentaire.blog.author.id == app.request.get('id') %}
+                <div class="between">
+                    <div>L'utilisateur 
+                        <strong>
+                            <a href="{{ path('blog_post_show', {'id': commentaire.blog.id}) }}">{{ commentaire.pseudo }}</a>
+                        </strong> a écrit :
+                    </div>
+                    <div>{{ commentaire.createdAt ? commentaire.createdAt|date('d-m-Y à H:i') : ''  }}</div>
+                </div>
+                <div class="message_text">- {{ commentaire.content }}</div></br></br></br>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+	<a href="{{ path('blog_post_index') }}">back to list</a>
+{% endblock %}
+

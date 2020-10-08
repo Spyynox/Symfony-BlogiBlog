@@ -1,0 +1,11 @@
+{{ form_start(form) }}
+    Title {{ form_widget(form.title) }} <br><br>
+
+    Content {{ form_widget(form.content) }} <br><br>
+    
+    Banner {{ form_widget(form.banner) }} <br><br>
+    
+    Categories {{ form_widget(form.categories) }} <br><br>
+
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

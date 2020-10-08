@@ -1,0 +1,51 @@
+h1 {
+    text-align: center;
+}
+
+img {
+    left: 0;
+    height: 50px;
+    width: 100%;
+}
+
+.container_home {
+    position: relative;
+    margin-top: 10%;
+    border: 1px solid green;
+    background: greenyellow;
+    height: 300px;
+    width: 300px;
+    margin: auto;
+}
+
+.border-link_ticket {
+    text-align: center;
+}
+
+.link_ticket {
+    margin: auto;
+    text-align: center;
+}
+
+.blog-end {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+    /* text-align: center; */
+}
+
+.delete {
+    color: red !important;
+}
+
+#blog_post_categories {
+    margin-left: 3%;
+}
+
+#blog_post_categories input {
+    margin-left: 1% !important;
+}
+
+.category {
+    color: blue !important;
+}
